@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/searcher.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">lib/searcher.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(19 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(4 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(4 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(19 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; searcher.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var fs    = require('fs');
+var Wreck = require('wreck');
+var wreck = Wreck.defaults({
+    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:19.0) Gecko/20100101 Firefox/19.0' }
+});
+&nbsp;
+/**
+ * construct_search_url
+ * @param {Array} keywords - a set of keywords to search for
+ * @returns {String} url - a valid "search engine" url
+ */
+function construct_search_url (keywords) {
+  var url = 'https://www.google.co.uk/search?q=';
+  url += encodeURIComponent( keywords.join(' ') );
+  return url;
+}
+// console.log(construct_search_url(['Anita', 'Czapla','Founders']));
+/**
+ * searcher does the grunt work of searching our favourite search engine ...
+ * @param {Array} keywords - a set of keywords to search for
+ * e.g: [ FirstName, LastName, JobTitle, Company, Location ]
+ * @param {function} next - the callback we should call once search is complete
+ *  a callback passed into this method should accept two parameters:
+ *  @param {Object} error an error object (set to null if no error occurred)
+ *  @param {String} url - the search engine url we searched
+ *  @param {String} html - the complete html for the search results
+ */
+function searcher (keywords, next) {
+&nbsp;
+  if(!keywords || typeof keywords === 'undefined') {
+    return next(404);
+  }
+  var url = construct_search_url( keywords );
+  wreck.get(url, function (error, response, html) {
+    var re  = new RegExp('/', 'g');
+    var dir = require('path').resolve(__dirname + '/../data');
+    // console.log(dir)
+    var filename = dir +'/' + url.replace('https://', '').replace(re,'_');
+    // console.log(filename);
+    fs.writeFile(filename, html.toString(), function(err, data){
+      return next(null, url, html);
+    })
+  });
+}
+module.exports = searcher;
+module.exports.url = construct_search_url;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Sep 30 2015 23:03:47 GMT+0100 (WEST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

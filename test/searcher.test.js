@@ -1,5 +1,4 @@
 var test     = require('tape');
-// var fs       = require('fs');
 var searcher = require('../lib/searcher');
 
 test('Construct Anita\'s Search Engine URL', function(t){
@@ -9,6 +8,14 @@ test('Construct Anita\'s Search Engine URL', function(t){
   console.log(result);
   t.ok(result === expected, 'Search Engine Link is: '+result);
   t.end();
+})
+
+test('Attempt to search without keywords 404 error', function(t) {
+
+  searcher(null, function(err, url, html){
+    t.ok(err === 404, 'Don\'t do that  ...')
+    t.end();
+  });
 })
 
 test('Search for Anita\'s Profile Link in Search Engine', function(t) {
