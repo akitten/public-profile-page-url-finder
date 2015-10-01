@@ -1,6 +1,6 @@
 {
   "name": "public-profile-page-link-finder",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Finds a persons public profile page. duh!",
   "main": "lib/index.js",
   "directories": {

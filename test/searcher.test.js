@@ -27,3 +27,15 @@ test('Search for Anita\'s Profile Link in Search Engine', function(t) {
     t.end();
   });
 })
+
+// see: https://github.com/nelsonic/public-profile-page-url-finder/issues/3
+test('Search for Simons\'s Profile Link in Search Engine', function(t) {
+  var keywords = ['Simon', 'Labondance','Founders', 'Coders'];
+  searcher(keywords, function(err, url, html){
+    console.log(err, url);
+    // var link = 'https://uk.linkedin.com/in/simonlab';
+    var link = 'https://uk.linkedin.com/in/anitaczapla';
+    t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
+    t.end();
+  });
+})
