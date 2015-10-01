@@ -1,6 +1,6 @@
 # public-profile-page-link-finder
 
-[![Build Status](https://travis-ci.org/nelsonic/linkedin-public-profile-parser.svg)](https://travis-ci.org/nelsonic/linkedin-public-profile-parser)
+[![Build Status](https://travis-ci.org/nelsonic/public-profile-page-url-finder.svg)](https://travis-ci.org/nelsonic/public-profile-page-url-finder)
 [![codecov.io](http://codecov.io/github/nelsonic/linkedin-public-profile-parser/coverage.svg?branch=master)](http://codecov.io/github/nelsonic/linkedin-public-profile-parser?branch=master)
 [![bitHound Score](https://www.bithound.io/github/nelsonic/linkedin-public-profile-parser/badges/score.svg)](https://www.bithound.io/github/nelsonic/linkedin-public-profile-parser)
 [![Dependency Status](https://david-dm.org/nelsonic/linkedin-public-profile-parser.svg)](https://david-dm.org/nelsonic/linkedin-public-profile-parser)
