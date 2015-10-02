@@ -1,14 +1,6 @@
 var test     = require('tape');
-var LF = require('../lib/index');
 var searcher = require('../lib/searcher');
 
-test('Attempt to search with wrong keywords', function(t) {
-
-  LF(null, function(err, data){
-    t.ok(err === 404, 'Don\'t do that  ...')
-    t.end();
-  });
-})
 
 test('Construct Anita\'s Search Engine URL', function(t){
   var keywords = ['Anita', 'Czapla','Founders'];
@@ -32,6 +24,16 @@ test('Search for Anita\'s Profile Link in Search Engine', function(t) {
   searcher(keywords, function(err, url, html){
     // console.log(err, url, html.toString());
     var link = 'https://uk.linkedin.com/in/anitaczapla';
+    t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
+    t.end();
+  });
+})
+
+test('Search for Abdi\'s Profile Link in Search Engine', function(t) {
+  var keywords = ['Abdi', 'Ahmed','Founders'];
+  searcher(keywords, function(err, url, html){
+    // console.log(err, url, html.toString());
+    var link = 'https://uk.linkedin.com/pub/abdi-ahmed/100/384/6b0';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
