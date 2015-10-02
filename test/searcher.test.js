@@ -1,5 +1,14 @@
 var test     = require('tape');
+var LF = require('../lib/index');
 var searcher = require('../lib/searcher');
+
+test('Attempt to search with wrong keywords', function(t) {
+
+  LF(null, function(err, data){
+    t.ok(err === 404, 'Don\'t do that  ...')
+    t.end();
+  });
+})
 
 test('Construct Anita\'s Search Engine URL', function(t){
   var keywords = ['Anita', 'Czapla','Founders'];
