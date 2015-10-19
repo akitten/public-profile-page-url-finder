@@ -36,12 +36,23 @@ test('Check that any-na linkedIn links are not selected', function(t) {
 })
 
 test('Check that the link of a pdf are correctly parsed', function(t) {
-  var keywords =  [ 'Abdi', 'Ahmed', 'Founders', 'and', 'Coders'];
+  var keywords =  [ 'Ines', 'Teles', 'Founders', 'Coders', 'pdf'];
 
   LF(keywords, function(err, data){
     console.log(data)
 
-    t.ok(data.links.length > 0, 'Find links for Abdi');
+    t.ok(data.links.length > 0, 'Find links for Ines');
+      t.end();
+  });
+})
+
+test('Check that the link of a image are avoid', function(t) {
+  var keywords =  [ 'Alex', 'Bubb', 'Microsoft'];
+
+  LF(keywords, function(err, data){
+    console.log(data)
+
+    t.ok(data.links.length > 0, 'Find links for Ines');
       t.end();
   });
 })
