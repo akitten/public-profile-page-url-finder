@@ -57,3 +57,23 @@ test('Find Profile Link for Simon', function(t) {
     });
   })
 })
+
+test('Find Profile Link for Jan', function(t) {
+  var url = 'www.google.co.uk_search?q=Jan%20Binder%20';
+  var file = require('path').resolve(__dirname + '/../data/' + url + '.html');
+  // var expected = 'https://uk.linkedin.com/in/simonlab';
+  var expected = 'https://uk.linkedin.com/in/janbinder';
+  fs.readFile(file, function(err, html){
+    console.log(err);
+    // console.log(html.toString());
+    finder(url, html, function(err, data) {
+      console.log(data)
+      var links = data.links.filter(function(link){
+        return link === expected;
+      })
+      t.ok(links.length === 0 , 'No profile link found for Jan: '+ links[0]);
+      t.end();
+    });
+  })
+})
+

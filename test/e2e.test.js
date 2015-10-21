@@ -68,13 +68,13 @@ test('Check that the link of a image are avoid for BEN', function(t) {
   });
 })
 
-test('Check that the link of a image are avoid for Jan ', function(t) {
-  var keywords =  [ 'Jan', 'Binder', ''];
+// test('Check that the link of a image are avoid for Jan ', function(t) {
+//   var keywords =  [ 'Jan', 'Binder', ''];
 
-  LF(keywords, function(err, data){
-    console.log(data)
+//   LF(keywords, function(err, data){
+//     console.log(data)
 
-    t.ok(data.links.length === 0, 'No links found for Jan');
-      t.end();
-  });
-})
+//     t.ok(data.links.length === 0, 'No links found for Jan');
+//       t.end();
+//   });
+// })
