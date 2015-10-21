@@ -52,7 +52,18 @@ test('Check that the link of a image are avoid', function(t) {
   LF(keywords, function(err, data){
     console.log(data)
 
-    t.ok(data.links.length > 0, 'Find links for Ines');
+    t.ok(data.links.length > 0, 'Find links for Alex');
+      t.end();
+  });
+})
+
+test('Check that the link of a image are avoid for BEN', function(t) {
+  var keywords =  [ 'Ben', 'Howes', 'Supercell'];
+
+  LF(keywords, function(err, data){
+    console.log(data)
+
+    t.ok(data.links.length > 0, 'Find links for Ben');
       t.end();
   });
 })
