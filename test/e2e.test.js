@@ -67,3 +67,14 @@ test('Check that the link of a image are avoid for BEN', function(t) {
       t.end();
   });
 })
+
+// test('Check that the link of a image are avoid for Jan ', function(t) {
+//   var keywords =  [ 'Jan', 'Binder', ''];
+
+//   LF(keywords, function(err, data){
+//     console.log(data)
+
+//     t.ok(data.links.length === 0, 'No links found for Jan');
+//       t.end();
+//   });
+// })
