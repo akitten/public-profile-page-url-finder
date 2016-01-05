@@ -52,4 +52,4 @@ Use the `data.links` how ever you choose.
 
 ## Any questions?
 
-Submit an issue: https://github.com/nelsonic/public-profile-page-url-finder/issues
+Submit an issue: https://github.com/akitten/public-profile-page-url-finder/issues
