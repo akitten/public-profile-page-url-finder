@@ -1,7 +1,9 @@
 var test = require('tape');
+var dir  = __dirname.split('/')[__dirname.split('/').length-1];
+var file  = dir + __filename.replace(__dirname, '') + ' >';
 var LF   = require('../lib/index');
 
-test('Attempt to search with wrong keywords', function(t) {
+test(file+' Attempt to search with wrong keywords', function(t) {
 
   LF(null, function(err, data){
     t.ok(err === 404, 'Don\'t do that  ...')
@@ -9,21 +11,21 @@ test('Attempt to search with wrong keywords', function(t) {
   });
 })
 
-test('Force profile link for Anita', function(t){
+test(file+' Force profile link for Anita', function(t){
 	var keywords = ['Anita', 'Czapla','Founders'];
-    var expected = 'https://uk.linkedin.com/in/anitaczapla';
+  var expected = 'https://www.linkedin.com/in/anitaczapla';
 
 	LF(keywords, function(err, data){
-      console.log(data)
-      var links = data.links.filter(function(link){
-      return link === expected;
-    })
+    console.log(data)
+    var links = data.links.filter(function(link){
+    return link === expected;
+    });
     t.ok(links[0] === expected, 'Found Profile Link for Anita: '+links[0]);
 		t.end();
 	});
 })
 
-test('Check that any-na linkedIn links are not selected', function(t) {
+test(file+' Check that any-na linkedIn links are not selected', function(t) {
   var keywords =  [ 'Mihail', 'Maxacov','YOPESO','Senior','JavaScript','developer' ];
   var notExpected = 'https://any-na.www.linkedin.com/pub/mihai-iachimovschi/89/134/401';
 
@@ -35,7 +37,7 @@ test('Check that any-na linkedIn links are not selected', function(t) {
   });
 })
 
-test('Check that the link of a pdf are correctly parsed', function(t) {
+test(file+' Check that the link of a pdf are correctly parsed', function(t) {
   var keywords =  [ 'Ines', 'Teles', 'Founders', 'Coders', 'pdf'];
 
   LF(keywords, function(err, data){
@@ -46,7 +48,7 @@ test('Check that the link of a pdf are correctly parsed', function(t) {
   });
 })
 
-test('Check that the link of a image are avoid', function(t) {
+test(file+' Check that the link of a image are avoid', function(t) {
   var keywords =  [ 'Alex', 'Bubb', 'Microsoft'];
 
   LF(keywords, function(err, data){
@@ -57,7 +59,7 @@ test('Check that the link of a image are avoid', function(t) {
   });
 })
 
-test('Check that the link of a image are avoid for BEN', function(t) {
+test(file+' Check that the link of a image are avoid for BEN', function(t) {
   var keywords =  [ 'Ben', 'Howes', 'Supercell'];
 
   LF(keywords, function(err, data){
@@ -68,7 +70,7 @@ test('Check that the link of a image are avoid for BEN', function(t) {
   });
 })
 
-// test('Check that the link of a image are avoid for Jan ', function(t) {
+// test(file+' Check that the link of a image are avoid for Jan ', function(t) {
 //   var keywords =  [ 'Jan', 'Binder', ''];
 
 //   LF(keywords, function(err, data){

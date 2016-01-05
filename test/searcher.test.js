@@ -1,8 +1,10 @@
 var test     = require('tape');
 var searcher = require('../lib/searcher');
+var dir      = __dirname.split('/')[__dirname.split('/').length-1];
+var file     = dir + __filename.replace(__dirname, '') + ' >';
+var LF       = require('../lib/index');
 
-
-test('Construct Anita\'s Search Engine URL', function(t){
+test(file+' Construct Anita\'s Search Engine URL', function(t){
   var keywords = ['Anita', 'Czapla','Founders'];
   var expected = 'https://www.google.co.uk/search?q=Anita%20Czapla%20Founders';
   var result   = searcher.url(keywords);
@@ -11,7 +13,7 @@ test('Construct Anita\'s Search Engine URL', function(t){
   t.end();
 })
 
-test('Attempt to search without keywords 404 error', function(t) {
+test(file+' Attempt to search without keywords 404 error', function(t) {
 
   searcher(null, function(err, url, html){
     t.ok(err === 404, 'Don\'t do that  ...')
@@ -19,31 +21,30 @@ test('Attempt to search without keywords 404 error', function(t) {
   });
 })
 
-test('Search for Anita\'s Profile Link in Search Engine', function(t) {
+test(file+' Search for Anita\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Anita', 'Czapla','Founders'];
   searcher(keywords, function(err, url, html){
-    // console.log(err, url, html.toString());
-    var link = 'https://uk.linkedin.com/in/anitaczapla';
+    var link = 'https://www.linkedin.com/in/anitaczapla';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
-})
+});
 
-test('Search for Abdi\'s Profile Link in Search Engine', function(t) {
+test(file+' Search for Abdi\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Abdi', 'Ahmed','Founders'];
   searcher(keywords, function(err, url, html){
     // console.log(err, url, html.toString());
-    var link = 'https://uk.linkedin.com/pub/abdi-ahmed/100/384/6b0';
+    var link = 'https://www.linkedin.com/in/abdi-ahmed-6b0384100';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
 })
 
-test('Search for Simons\'s Profile Link in Search Engine', function(t) {
+test(file+' Search for Simons\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Simon', 'Labondance','Founders', 'Coders'];
   searcher(keywords, function(err, url, html){
-    var link = 'https://uk.linkedin.com/in/simonlab';
+    var link = 'https://www.linkedin.com/in/simonlab';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
-})
+});

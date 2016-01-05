@@ -1,11 +1,14 @@
 var test    = require('tape');
 var fs      = require('fs');
-var finder = require('../lib/finder');
+var dir     = __dirname.split('/')[__dirname.split('/').length-1];
+var file    = dir + __filename.replace(__dirname, '') + ' >';
+var LF      = require('../lib/index');
+var finder  = require('../lib/finder');
 
-test('Find Profile Link for Anita', function(t) {
+test(file+' Find Profile Link for Anita', function(t) {
   var url = 'www.google.co.uk_search?q=Anita%20Czapla%20Founders';
   var file = require('path').resolve(__dirname + '/../data/' + url + '.html');
-  var expected = 'https://uk.linkedin.com/in/anitaczapla';
+  var expected = 'https://www.linkedin.com/in/anitaczapla';
   fs.readFile(file, function(err, html){
     // console.log(err);
     // console.log(html.toString());
@@ -20,10 +23,10 @@ test('Find Profile Link for Anita', function(t) {
   })
 })
 
-test('Find Profile Link for Abdi', function(t) {
+test(file+' Find Profile Link for Abdi', function(t) {
   var url = 'www.google.co.uk_search?q=Abdi%20Ahmed%20Founders';
   var file = require('path').resolve(__dirname + '/../data/' + url + '.html');
-  var expected = 'https://uk.linkedin.com/pub/abdi-ahmed/100/384/6b0';
+  var expected = 'https://www.linkedin.com/in/abdi-ahmed-6b0384100';
   fs.readFile(file, function(err, html){
     // console.log(err);
     // console.log(html.toString());
@@ -39,7 +42,7 @@ test('Find Profile Link for Abdi', function(t) {
 })
 
 
-test('Find Profile Link for Simon', function(t) {
+test(file+' Find Profile Link for Simon', function(t) {
   var url = 'www.google.co.uk_search?q=Simon%20Labondance%20Founders';
   var file = require('path').resolve(__dirname + '/../data/' + url + '.html');
   // var expected = 'https://uk.linkedin.com/in/simonlab';
@@ -58,7 +61,7 @@ test('Find Profile Link for Simon', function(t) {
   })
 })
 
-test('Find Profile Link for Jan', function(t) {
+test(file+' Find Profile Link for Jan', function(t) {
   var url = 'www.google.co.uk_search?q=Jan%20Binder%20';
   var file = require('path').resolve(__dirname + '/../data/' + url + '.html');
   // var expected = 'https://uk.linkedin.com/in/simonlab';
