@@ -33,10 +33,10 @@
     "wreck": "^7.0.0"
   },
   "devDependencies": {
-    "istanbul": "^0.3.21",
+    "istanbul": "^0.4.1",
     "jshint": "^2.8.0",
-    "pre-commit": "1.1.1",
-    "tape": "^4.2.0"
+    "pre-commit": "1.1.2",
+    "tape": "^4.4.0"
   },
   "pre-commit": [
     "jshint",
