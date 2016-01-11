@@ -43,8 +43,24 @@ test(file+' Search for Abdi\'s Profile Link in Search Engine', function(t) {
 test(file+' Search for Simons\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Simon', 'Labondance','Founders', 'Coders'];
   searcher(keywords, function(err, url, html){
-    var link = 'https://www.linkedin.com/in/simonlab';
+    var link = 'https://uk.linkedin.com/in/simonlab';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
+    t.end();
+  });
+});
+
+test(file+' Attempt to search when Google block the request', function(t) {
+  var keywords = ['request', 'blocked'];
+
+  //'https://www.google.co.uk'
+  var nock = require('nock');
+  var scope = nock('https://www.google.co.uk')
+            .get('/search?q=request%20blocked')
+            .reply(302, 'Redirect to captcha');
+
+  searcher(keywords, function(err, url, html){
+    t.ok(err === 302, 'Status code 302 when blocked by Google')
+    t.ok(html.toString() === 'Redirect to captcha', 'Return captcha page when blocked by Google');
     t.end();
   });
 });
