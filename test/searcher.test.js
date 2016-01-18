@@ -8,7 +8,6 @@ test(file+' Construct Anita\'s Search Engine URL', function(t){
   var keywords = ['Anita', 'Czapla','Founders'];
   var expected = 'https://www.google.co.uk/search?q=Anita%20Czapla%20Founders';
   var result   = searcher.url(keywords);
-  console.log(result);
   t.ok(result === expected, 'Search Engine Link is: '+result);
   t.end();
 })
@@ -24,7 +23,7 @@ test(file+' Attempt to search without keywords 404 error', function(t) {
 test(file+' Search for Anita\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Anita', 'Czapla','Founders'];
   searcher(keywords, function(err, url, html){
-    var link = 'https://www.linkedin.com/in/anitaczapla';
+    var link = 'https://uk.linkedin.com/in/anitaczapla';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
@@ -34,7 +33,7 @@ test(file+' Search for Abdi\'s Profile Link in Search Engine', function(t) {
   var keywords = ['Abdi', 'Ahmed','Founders'];
   searcher(keywords, function(err, url, html){
     // console.log(err, url, html.toString());
-    var link = 'https://www.linkedin.com/in/abdi-ahmed-6b0384100';
+    var link = 'https://uk.linkedin.com/in/abdi-ahmed-6b0384100';
     t.ok(html.toString().indexOf(link) > -1, 'Search Results contain link: '+link)
     t.end();
   });
@@ -61,6 +60,22 @@ test(file+' Attempt to search when Google block the request', function(t) {
   searcher(keywords, function(err, url, html){
     t.ok(err === 302, 'Status code 302 when blocked by Google')
     t.ok(html.toString() === 'Redirect to captcha', 'Return captcha page when blocked by Google');
+    t.end();
+  });
+});
+
+test(file+' Handle error and check that the response is undefined', function(t) {
+  var keywords = ['error', 'error'];
+
+  //'https://www.google.co.uk'
+  var nock = require('nock');
+  var scope = nock('https://www.google.co.uk')
+            .get('/search?q=error%20error')
+            .replyWithError('something awful happened');
+
+  searcher(keywords, function(err, url, html){
+    t.ok(html === undefined, 'the html response is not defined');
+    t.ok(err.output.payload.message === 'something awful happened', 'The message of the error is : something awful happened');
     t.end();
   });
 });
